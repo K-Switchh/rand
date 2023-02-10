@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+	<html>
+		<body>
+			<div>
+				<h1>Will you be my Valentine?</h1>
+				<button id="yesButton">Yes</button>
+				<button id="no" >No</button>
+				<img id="gif" src="" style="display:none;">
+			</div>
+		
+			<style>
+				body {
+					background-image: url("hart.jpg");
+					background-size: cover;
+					position: relative;
+				}
+				div{
+					text-align: center;
+					vertical-align: middle;
+				}
+				button {
+					padding: 10px 20px;
+					border-radius: 5px;
+					border: none;
+					background-color: pink;
+					color: white;
+					font-family: Arial, sans-serif;
+					font-size: 16px;
+					cursor: pointer;
+				}
+				#no{
+					position: absolute;
+				}
+			</style>
+			<script>
+				document.getElementById("yesButton").addEventListener("click", function(){
+				alert("I Love Youuu! Advance Happy Valentines Mik hehe hope you like it:)<3");
+				});
+
+				var b = document.getElementById("no");
+				var gifs = ["crying-baby.gif", "bubududu-panda.gif", "quby-cute.gif", "baby.gif","tears-heartbreak.gif","quby-sticker.gif"];
+				var gifIndex = 0;
+
+				b.addEventListener("click", change);
+
+				var gifPositions = [];
+
+				function change() {
+				var i = Math.floor(Math.random() * (window.innerWidth - 200));
+				var j = Math.floor(Math.random() * (window.innerHeight - 200));
+
+				// Ensure the button stays within the viewable area
+				if (i + b.offsetWidth > window.innerWidth) {
+					i = window.innerWidth - b.offsetWidth;
+				}
+				if (j + b.offsetHeight > window.innerHeight) {
+					j = window.innerHeight - b.offsetHeight;
+				}
+
+				// Check if the button's new position intersects with any of the gifs
+				for (var k = 0; k < gifPositions.length; k++) {
+					var gifPosition = gifPositions[k];
+					if (i < gifPosition.x + gifPosition.width &&
+						i + b.offsetWidth > gifPosition.x &&
+						j < gifPosition.y + gifPosition.height &&
+						j + b.offsetHeight > gifPosition.y) {
+					// If the button's new position intersects with a gif, adjust its position
+					i = gifPosition.x + gifPosition.width;
+					j = gifPosition.y + gifPosition.height;
+					}
+				}
+
+				b.style.left = i + "px";
+				b.style.top = j + "px";
+
+				gifIndex++;
+				if (gifIndex >= gifs.length) {
+					gifIndex = 0;
+				}
+
+				  var newImage = document.createElement("div");
+				  newImage.style.backgroundImage = "url(" + gifs[gifIndex] + ")";
+				  newImage.style.backgroundSize = "cover";
+				  newImage.style.width = "110px";
+				  newImage.style.height = "110px";
+				  newImage.style.position = "absolute";
+				  newImage.style.left = i + 110 + "px";
+				  newImage.style.top = j + "px";
+				  document.body.appendChild(newImage);
+
+				  gifPositions.push({
+					x: i + 100,
+					y: j,
+					width: 100,
+					height: 100
+				  });
+				}
+			</script>
+		</body>
+	</html>
